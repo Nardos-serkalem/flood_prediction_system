@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Prediction History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h1 class="text-center">Flood Prediction History</h1>
+
+    <!-- Search Form -->
+    <form action="/history" method="get" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" name="city" class="form-control" placeholder="Search by City">
+        </div>
+        <div class="col-md-4">
+            <input type="date" name="date" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    <!-- Table of Past Predictions -->
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Date</th>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+                <th>Rainfall (mm)</th>
+                <th>Flood Risk</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in predictions %}
+            <tr>
+                <td>{{ record.city }}</td>
+                <td>{{ record.date }}</td>
+                <td>{{ record.temperature }}</td>
+                <td>{{ record.humidity }}</td>
+                <td>{{ record.rainfall }}</td>
+                <td><strong>{{ record.predicted_risk }}</strong></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Delete Old Data Button -->
+    <form action="/delete_old_data" method="get">
+        <button type="submit" class="btn btn-danger mt-3">Delete Old Data</button>
+    </form>
+
+    <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+</body>
+</html>
